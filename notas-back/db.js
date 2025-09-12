@@ -1,15 +1,22 @@
 const mysql = require('mysql2');
+require('dotenv').config();
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'notas_app'
+const db = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'notasdb',
+  port: process.env.DB_PORT || 3306
 });
 
-db.connect(err => {
-    if(err) console.error('Error conectando a DB:', err);
-    else console.log('✅ Conexión a la DB exitosa');
+// Test de conexión
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error('❌ Error al conectar a la DB:', err.message);
+    return;
+  }
+  console.log('✅ Conexión a MySQL exitosa');
+  connection.release();
 });
 
 module.exports = db;

@@ -1,183 +1,58 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
+import { FaStar, FaCheck, FaTrash, FaEdit } from 'react-icons/fa';
 import axios from 'axios';
-import { FaTrash, FaEdit, FaStar, FaCheck, FaRegStickyNote } from 'react-icons/fa';
-import { LangContext } from '../App';
 
-function NotesList({ notes, fetchNotes, filters }) {
-  const [editId, setEditId] = useState(null);
-  const [editTitle, setEditTitle] = useState('');
-  const [editContent, setEditContent] = useState('');
-  const [editCategory, setEditCategory] = useState('');
-  const { lang } = useContext(LangContext);
+function NotesList({ notes, fetchNotes, filters, setNoteToEdit }) {
+  const token = localStorage.getItem('token');
 
-  const t = {
-    es: {
-      save: 'Guardar',
-      cancel: 'Cancelar',
-      category: 'Categoría',
-      empty: 'No hay notas que coincidan con tu búsqueda.'
-    },
-    en: {
-      save: 'Save',
-      cancel: 'Cancel',
-      category: 'Category',
-      empty: 'No notes match your search.'
-    }
-  }[lang];
+  const filtered = notes.filter(note => {
+    const matchesKeyword = note.title.toLowerCase().includes(filters.keyword.toLowerCase()) || note.content.toLowerCase().includes(filters.keyword.toLowerCase());
+    const matchesFavorite = filters.favorite ? note.favorite : true;
+    const matchesCompleted = filters.completed ? note.completed : true;
+    return matchesKeyword && matchesFavorite && matchesCompleted;
+  });
 
-  const startEdit = (note) => {
-    setEditId(note.id);
-    setEditTitle(note.title);
-    setEditContent(note.content);
-    setEditCategory(note.category);
-  };
-
-  const saveEdit = async (id) => {
+  const handleDelete = async (id) => {
+    if (!token) return;
     try {
-      await axios.put(`http://localhost:5000/api/notes/${id}`, {
-        title: editTitle,
-        content: editContent,
-        category: editCategory
-      });
-      setEditId(null);
+      await axios.delete(`http://localhost:5000/api/notes/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchNotes();
-    } catch (error) {
-      console.error('Error al editar nota:', error);
-    }
-  };
-
-  const deleteNote = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/notes/${id}`);
-      fetchNotes();
-    } catch (error) {
-      console.error('Error al eliminar nota:', error);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const toggleFavorite = async (note) => {
+    if (!token) return;
     try {
-      await axios.put(`http://localhost:5000/api/notes/${note.id}`, {
-        ...note,
-        favorite: !note.favorite
-      });
+      await axios.put(`http://localhost:5000/api/notes/${note.id}`, { ...note, favorite: !note.favorite }, { headers: { Authorization: `Bearer ${token}` } });
       fetchNotes();
-    } catch (error) {
-      console.error('Error al cambiar favorita:', error);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const toggleCompleted = async (note) => {
+    if (!token) return;
     try {
-      await axios.put(`http://localhost:5000/api/notes/${note.id}`, {
-        ...note,
-        completed: !note.completed
-      });
+      await axios.put(`http://localhost:5000/api/notes/${note.id}`, { ...note, completed: !note.completed }, { headers: { Authorization: `Bearer ${token}` } });
       fetchNotes();
-    } catch (error) {
-      console.error('Error al cambiar completada:', error);
-    }
+    } catch (err) { console.error(err); }
   };
 
-  // 🔎 Filtros activos desde Navbar
-  const filteredNotes = notes.filter((note) => {
-    const keywordMatch =
-      filters.keyword === '' ||
-      note.title.toLowerCase().includes(filters.keyword.toLowerCase()) ||
-      note.content.toLowerCase().includes(filters.keyword.toLowerCase()) ||
-      (note.category && note.category.toLowerCase().includes(filters.keyword.toLowerCase()));
-
-    const favoriteMatch = !filters.favorite || note.favorite;
-    const completedMatch = !filters.completed || note.completed;
-
-    return keywordMatch && favoriteMatch && completedMatch;
-  });
-
   return (
-    <div className="grid gap-4">
-      {filteredNotes.length === 0 ? (
-        <div className="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 py-8">
-          <FaRegStickyNote size={40} className="mb-2" />
-          <p>{t.empty}</p>
-        </div>
-      ) : (
-        filteredNotes.map((note) => (
-          <div key={note.id} className="bg-white dark:bg-gray-800 p-4 rounded shadow">
-            {editId === note.id ? (
-              <>
-                <input
-                  value={editTitle}
-                  onChange={(e) => setEditTitle(e.target.value)}
-                  className="w-full mb-2 p-2 border rounded"
-                />
-                <input
-                  value={editCategory}
-                  onChange={(e) => setEditCategory(e.target.value)}
-                  placeholder={t.category}
-                  className="w-full mb-2 p-2 border rounded"
-                />
-                <textarea
-                  value={editContent}
-                  onChange={(e) => setEditContent(e.target.value)}
-                  className="w-full mb-2 p-2 border rounded"
-                />
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => saveEdit(note.id)}
-                    className="bg-green-500 text-white px-2 py-1 rounded"
-                  >
-                    {t.save}
-                  </button>
-                  <button
-                    onClick={() => setEditId(null)}
-                    className="bg-gray-500 text-white px-2 py-1 rounded"
-                  >
-                    {t.cancel}
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <h3 className="font-bold text-lg">{note.title}</h3>
-                {note.category && (
-                  <p className="italic text-sm text-gray-500 dark:text-gray-400">
-                    {note.category}
-                  </p>
-                )}
-                <p>{note.content}</p>
-                <div className="flex gap-2 mt-2">
-                  <button
-                    onClick={() => startEdit(note)}
-                    title={lang === 'es' ? 'Editar' : 'Edit'}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => deleteNote(note.id)}
-                    title={lang === 'es' ? 'Eliminar' : 'Delete'}
-                  >
-                    <FaTrash />
-                  </button>
-                  <button
-                    onClick={() => toggleFavorite(note)}
-                    title={lang === 'es' ? 'Favorita' : 'Favorite'}
-                    className={`${note.favorite ? 'text-yellow-400' : 'text-gray-400'}`}
-                  >
-                    <FaStar />
-                  </button>
-                  <button
-                    onClick={() => toggleCompleted(note)}
-                    title={lang === 'es' ? 'Completada' : 'Completed'}
-                    className={`${note.completed ? 'text-green-500' : 'text-gray-400'}`}
-                  >
-                    <FaCheck />
-                  </button>
-                </div>
-              </>
-            )}
+    <div className="flex flex-col gap-2">
+      {filtered.map(note => (
+        <div key={note.id} className="p-4 bg-white dark:bg-gray-800 rounded shadow flex justify-between items-start">
+          <div>
+            <h3 className="font-bold">{note.title}</h3>
+            <p>{note.content}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{note.category}</p>
           </div>
-        ))
-      )}
+          <div className="flex flex-col gap-1">
+            <button onClick={() => toggleFavorite(note)} className="flex items-center gap-1">{note.favorite ? <FaStar className="text-yellow-400" /> : <FaStar />}</button>
+            <button onClick={() => toggleCompleted(note)} className="flex items-center gap-1">{note.completed ? <FaCheck className="text-green-500" /> : <FaCheck />}</button>
+            <button onClick={() => setNoteToEdit(note)} className="flex items-center gap-1 text-blue-500"><FaEdit /></button>
+            <button onClick={() => handleDelete(note.id)} className="flex items-center gap-1 text-red-500"><FaTrash /></button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
