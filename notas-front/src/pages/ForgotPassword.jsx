@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [showPwd, setShowPwd] = useState(false);
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -12,18 +15,15 @@ function ForgotPassword() {
     e.preventDefault();
     setMsg('');
     setError('');
-
-    if (!email.trim()) {
-      setError('El email es obligatorio');
+    if (!email.trim() || !newPassword.trim()) {
+      setError('Completa todos los campos');
       return;
     }
-
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
-      setMsg(res.data.message);
-
-      // Redirigir al login después de 3 segundos
-      setTimeout(() => navigate('/login'), 3000);
+      const base = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const res = await axios.post(`${base}/api/auth/reset-password`, { email, newPassword });
+      setMsg(res.data.message || 'Contraseña actualizada');
+      setTimeout(() => navigate('/login'), 2500);
     } catch (err) {
       setError(err.response?.data?.error || 'Error al procesar la solicitud');
     }
@@ -42,7 +42,28 @@ function ForgotPassword() {
           onChange={e => setEmail(e.target.value)}
           className="p-2 rounded border dark:bg-gray-700 dark:text-white"
         />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Enviar</button>
+
+        <div className="relative">
+          <input
+            type={showPwd ? 'text' : 'password'}
+            placeholder="Nueva contraseña"
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            className="p-2 rounded border w-full dark:bg-gray-700 dark:text-white"
+          />
+          {newPassword.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowPwd(!showPwd)}
+              className="absolute right-2 top-2 text-gray-600 dark:text-gray-300"
+              aria-label={showPwd ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+            >
+              {showPwd ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          )}
+        </div>
+
+        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">Actualizar</button>
       </form>
     </div>
   );
