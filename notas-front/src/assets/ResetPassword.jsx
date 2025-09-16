@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import API from "../axiosInstance";
@@ -72,4 +72,4 @@ function ChangePassword() {
   );
 }
 
-export default ChangePassword;
+export default ChangePassword; */

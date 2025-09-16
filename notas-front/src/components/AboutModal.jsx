@@ -1,21 +1,21 @@
-import React, { useContext } from 'react';
-import { FaReact, FaNodeJs, FaDatabase } from 'react-icons/fa';
-import { SiTailwindcss, SiExpress } from 'react-icons/si';
-import { LangContext } from '../App';
+import React, { useContext } from "react";
+import { FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
+import { SiTailwindcss, SiExpress } from "react-icons/si";
+import { LangContext } from "../App";
 
 function AboutModal({ close }) {
   const { lang } = useContext(LangContext);
 
   const t = {
     es: {
-      title: 'Acerca de',
-      desc: 'Aplicación de notas desarrollada por Julio César Yañez M. con tecnologías modernas.',
-      close: 'Cerrar'
+      title: "Acerca de",
+      desc: "Aplicación de notas desarrollada por Julio César Yañez M. con tecnologías modernas.",
+      close: "Cerrar"
     },
     en: {
-      title: 'About',
-      desc: 'Notes app developed by Julio César Yañez M. using modern technologies.',
-      close: 'Close'
+      title: "About",
+      desc: "Notes app developed by Julio César Yañez M. using modern technologies.",
+      close: "Close"
     }
   }[lang];
 
