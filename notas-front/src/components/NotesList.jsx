@@ -1,4 +1,4 @@
-import React, { useContext } from "react"; // Componente de NotesList
+import React, { useContext } from "react"; // Componente de NotesList...
 import { FaStar, FaCheck, FaTrash, FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { LangContext } from "../App";

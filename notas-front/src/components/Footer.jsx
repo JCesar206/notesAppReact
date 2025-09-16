@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Componente Footer...
 import { FaGithub, FaLinkedin, FaEnvelope, FaHome } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 

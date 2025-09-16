@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');  // Validar autorizaciones
 const db = require('../db');
 const secret = process.env.JWT_SECRET || 'secret_dev';
 

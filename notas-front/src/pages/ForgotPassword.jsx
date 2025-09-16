@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Componente de Olvido contraseña
+import React, { useState } from "react"; // Componente de Olvido contraseña...
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import API from "../axiosInstance";

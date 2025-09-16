@@ -1,4 +1,4 @@
-import React, { useContext } from "react"; // Componente de Logout
+import React, { useContext } from "react"; // Componente de Logout...
 import { AuthContext } from "../contexts/AuthContext";
 
 function Logout() {

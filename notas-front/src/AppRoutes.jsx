@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Navegacion via routers
+import React, { useState, useEffect } from "react"; // Navegacion via routers...
 import { Routes, Route, Navigate } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/Login";
