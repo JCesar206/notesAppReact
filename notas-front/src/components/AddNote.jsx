@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from "react"; // Componente de Agregar Nota
 import axios from "axios";
 import { FaRegSmile } from "react-icons/fa";
 import Picker from "emoji-picker-react";

@@ -31,7 +31,7 @@ function AboutModal({ close }) {
 
         {/* Texto */}
         <h2 className="text-2xl font-bold mb-2">{t.title}</h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{t.desc}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 font-semibold">{t.desc}</p>
 
         {/* Tecnologías */}
         <div className="flex justify-center gap-6 text-4xl mb-6">

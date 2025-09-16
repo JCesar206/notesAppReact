@@ -2,7 +2,7 @@ import db from '../config/db.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-// ✅ Registro
+// ✅ Registro de usuario
 export const register = async (req, res) => {
   try {
     const { email, password } = req.body;

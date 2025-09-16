@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react"; // App principal
 import Navbar from "./components/Navbar";
 import AddNote from "./components/AddNote";
 import NotesList from "./components/NotesList";

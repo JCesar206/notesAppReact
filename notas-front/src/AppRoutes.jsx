@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // Navegacion via routers
 import { Routes, Route, Navigate } from "react-router-dom";
 import App from "./App";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword"; // ResetPassword.jsx ?
+import ForgotPassword from "./pages/ForgotPassword";
 
 function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false);

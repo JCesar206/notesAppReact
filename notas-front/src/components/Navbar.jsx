@@ -38,7 +38,7 @@ function Navbar({ filters, setFilters, openAbout, setIsAuth }) {
         <div className="text-xl font-bold">📝 {t.titleApp}</div>
         <div className="hidden md:flex gap-4 items-center">
           {menuItems.map((item,i) => item.component ? <div key={i} className="relative flex items-center gap-1">{item.icon} {item.component}</div> : <button key={i} onClick={item.action} className={`flex items-center gap-1 hover:underline ${item.active ? "text-blue-500":""}`}>{item.icon} {item.name}</button>)}
-          {authItems.map((item,i) => <button key={i} onClick={item.action} className="flex items-center gap-1 hover:underline">{item.icon} {item.name}</button>)}
+          {authItems.map((item,i) => <button key={i} onClick={item.action} className="flex items-center gap-1 hover:underline font-semibold">{item.icon} {item.name}</button>)}
         </div>
         <div className="md:hidden">
           <button onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<FaTimes size={24}/>:<FaBars size={24}/>}</button>

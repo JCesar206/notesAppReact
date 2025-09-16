@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'; // Validar token
 
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;

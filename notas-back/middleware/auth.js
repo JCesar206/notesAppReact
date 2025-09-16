@@ -1,4 +1,3 @@
-// middleware/auth.js
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 const secret = process.env.JWT_SECRET || 'secret_dev';

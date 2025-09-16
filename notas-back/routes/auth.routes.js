@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'; // Autorizar acceso a la app y notas
 import { register, login, resetPassword } from '../controllers/authController.js';
 
 const router = express.Router();
