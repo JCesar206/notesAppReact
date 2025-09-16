@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Componente de Registro
+import React, { useState } from "react"; // Componente de Registro...
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import API from "../axiosInstance";

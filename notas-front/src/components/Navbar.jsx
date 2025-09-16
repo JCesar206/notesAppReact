@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from "react"; // Componente Navbar...
 import { FaBars, FaTimes, FaSun, FaMoon, FaInfoCircle, FaSearch, FaStar, FaCheck, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 import { LangContext, ThemeContext } from "../App";
 import { useNavigate } from "react-router-dom";

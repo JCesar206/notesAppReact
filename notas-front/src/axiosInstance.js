@@ -1,4 +1,4 @@
-import axios from "axios"; // Consumo de la api via baseURL
+import axios from "axios"; // Consumo de la api via baseURL...
 
 const API = axios.create({
   baseURL: "http://localhost:5000/api",

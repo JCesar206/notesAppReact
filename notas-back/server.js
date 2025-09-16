@@ -1,4 +1,4 @@
-import express from 'express'; // Server main
+import express from 'express'; // Server main...
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';

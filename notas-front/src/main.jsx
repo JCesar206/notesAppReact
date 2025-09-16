@@ -1,4 +1,4 @@
-import React from "react"; // Render principal
+import React from "react"; // Render principal...
 import ReactDOM from "react-dom/client";
 import AppRoutes from "./AppRoutes";
 import "./index.css";

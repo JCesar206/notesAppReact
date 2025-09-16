@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Julio Cesar Yañez M",
+  "author": "Julio Cesar Yañez Mejia",
   "license": "ISC",
   "type": "module",
   "dependencies": {

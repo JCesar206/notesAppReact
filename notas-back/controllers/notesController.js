@@ -1,6 +1,6 @@
 import db from '../config/db.js';
 
-// Crear nota y guardarla en db
+// Crear nota y guardarla en db...
 export const createNote = async (req, res) => {
   try {
     const { title, content, category, favorite, completed } = req.body;

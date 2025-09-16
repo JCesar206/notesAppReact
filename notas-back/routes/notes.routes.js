@@ -1,4 +1,4 @@
-import express from 'express'; // Acceso a las notas del usuario
+import express from 'express'; // Acceso a las notas del usuario...
 import { createNote, getNotes, updateNote, deleteNote } from '../controllers/notesController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 

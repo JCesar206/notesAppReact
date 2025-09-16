@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react"; // Validar el contexto de acceso
+import React, { createContext, useState, useEffect } from "react"; // Validar el contexto de acceso...
 import axios from "axios";
 
 export const AuthContext = createContext();
