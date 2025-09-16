@@ -1,21 +1,21 @@
-import React, { useContext } from 'react';
-import { FaReact, FaNodeJs, FaDatabase } from 'react-icons/fa';
-import { SiTailwindcss, SiExpress } from 'react-icons/si';
-import { LangContext } from '../App';
+import React, { useContext } from "react";
+import { FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
+import { SiTailwindcss, SiExpress } from "react-icons/si";
+import { LangContext } from "../App";
 
 function AboutModal({ close }) {
   const { lang } = useContext(LangContext);
 
   const t = {
     es: {
-      title: 'Acerca de',
-      desc: 'Aplicación de notas desarrollada por Julio César Yañez M. con tecnologías modernas.',
-      close: 'Cerrar'
+      title: "Acerca de",
+      desc: "Aplicación de notas desarrollada por Julio César Yañez M. con tecnologías modernas.",
+      close: "Cerrar"
     },
     en: {
-      title: 'About',
-      desc: 'Notes app developed by Julio César Yañez M. using modern technologies.',
-      close: 'Close'
+      title: "About",
+      desc: "Notes app developed by Julio César Yañez M. using modern technologies.",
+      close: "Close"
     }
   }[lang];
 
@@ -31,7 +31,7 @@ function AboutModal({ close }) {
 
         {/* Texto */}
         <h2 className="text-2xl font-bold mb-2">{t.title}</h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{t.desc}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 font-semibold">{t.desc}</p>
 
         {/* Tecnologías */}
         <div className="flex justify-center gap-6 text-4xl mb-6">
